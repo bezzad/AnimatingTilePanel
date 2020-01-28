@@ -31,7 +31,7 @@ namespace TilePanel
         }
 
         public static readonly DependencyProperty ItemWidthProperty =
-            CreateDoubleDP("ItemWidth", 50, FrameworkPropertyMetadataOptions.AffectsMeasure, 0, double.PositiveInfinity, true);
+            CreateDoubleDp("ItemWidth", 50, FrameworkPropertyMetadataOptions.AffectsMeasure, 0, double.PositiveInfinity, true);
 
         public double ItemHeight
         {
@@ -52,7 +52,7 @@ namespace TilePanel
         }
 
         public static readonly DependencyProperty ItemHeightProperty =
-            CreateDoubleDP("ItemHeight", 50, FrameworkPropertyMetadataOptions.AffectsMeasure, 0, double.PositiveInfinity, true);
+            CreateDoubleDp("ItemHeight", 50, FrameworkPropertyMetadataOptions.AffectsMeasure, 0, double.PositiveInfinity, true);
 
         #endregion
 
@@ -60,9 +60,9 @@ namespace TilePanel
 
         protected override Size MeasureOverride(Size availableSize)
         {
-            onPreApplyTemplate();
+            OnPreApplyTemplate();
 
-            Size theChildSize = getItemSize();
+            Size theChildSize = GetItemSize();
 
             foreach (UIElement child in Children)
             {
@@ -92,38 +92,38 @@ namespace TilePanel
         {
             // Calculate how many children fit on each row
             int childrenPerRow = Math.Max(1, (int)Math.Floor(finalSize.Width / this.ItemWidth));
-            Size theChildSize = getItemSize();
+            Size theChildSize = GetItemSize();
 
             for (int i = 0; i < this.Children.Count; i++)
             {
                 // Figure out where the child goes
-                Point newOffset = calculateChildOffset(i, childrenPerRow,
+                Point newOffset = CalculateChildOffset(i, childrenPerRow,
                     this.ItemWidth, this.ItemHeight,
                     finalSize.Width, this.Children.Count);
 
                 ArrangeChild(Children[i], new Rect(newOffset, theChildSize));
             }
 
-            m_arrangedOnce = true;
+            _mArrangedOnce = true;
             return finalSize;
         }
 
         protected override Point ProcessNewChild(UIElement child, Rect providedBounds)
         {
             var startLocation = providedBounds.Location;
-            if (m_arrangedOnce)
+            if (_mArrangedOnce)
             {
-                if (m_itemOpacityAnimation == null)
+                if (_mItemOpacityAnimation == null)
                 {
-                    m_itemOpacityAnimation = new DoubleAnimation()
+                    _mItemOpacityAnimation = new DoubleAnimation()
                     {
                         From = 0,
                         Duration = new Duration(TimeSpan.FromSeconds(.5))
                     };
-                    m_itemOpacityAnimation.Freeze();
+                    _mItemOpacityAnimation.Freeze();
                 }
 
-                child.BeginAnimation(UIElement.OpacityProperty, m_itemOpacityAnimation);
+                child.BeginAnimation(UIElement.OpacityProperty, _mItemOpacityAnimation);
                 startLocation -= new Vector(providedBounds.Width, 0);
             }
             return startLocation;
@@ -135,9 +135,9 @@ namespace TilePanel
 
         #region private methods
 
-        private Size getItemSize() { return new Size(ItemWidth, ItemHeight); }
+        private Size GetItemSize() { return new Size(ItemWidth, ItemHeight); }
 
-        private void bindToParentItemsControl(DependencyProperty property, DependencyObject source)
+        private void BindToParentItemsControl(DependencyProperty property, DependencyObject source)
         {
             if (DependencyPropertyHelper.GetValueSource(this, property).BaseValueSource == BaseValueSource.Default)
             {
@@ -148,11 +148,11 @@ namespace TilePanel
             }
         }
 
-        private void onPreApplyTemplate()
+        private void OnPreApplyTemplate()
         {
-            if (!m_appliedTemplate)
+            if (!_mAppliedTemplate)
             {
-                m_appliedTemplate = true;
+                _mAppliedTemplate = true;
 
                 DependencyObject source = base.TemplatedParent;
                 if (source is ItemsPresenter)
@@ -162,14 +162,14 @@ namespace TilePanel
 
                 if (source != null)
                 {
-                    bindToParentItemsControl(ItemHeightProperty, source);
-                    bindToParentItemsControl(ItemWidthProperty, source);
+                    BindToParentItemsControl(ItemHeightProperty, source);
+                    BindToParentItemsControl(ItemWidthProperty, source);
                 }
             }
         }
 
         // Given a child index, child size and children per row, figure out where the child goes
-        private static Point calculateChildOffset(
+        private static Point CalculateChildOffset(
             int index,
             int childrenPerRow,
             double itemWidth,
@@ -191,9 +191,9 @@ namespace TilePanel
 
         #endregion
 
-        private bool m_appliedTemplate;
-        private bool m_arrangedOnce;
-        private DoubleAnimation m_itemOpacityAnimation;
+        private bool _mAppliedTemplate;
+        private bool _mArrangedOnce;
+        private DoubleAnimation _mItemOpacityAnimation;
 
         #endregion
     } //*** class AnimatingTilePanel

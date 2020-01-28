@@ -27,7 +27,7 @@ namespace TilePanel
         public CastList(IList<TFrom> from)
         {
             Contract.Requires(from != null);
-            m_source = from;
+            _mSource = from;
         }
 
         /// <summary>
@@ -35,23 +35,23 @@ namespace TilePanel
         /// </summary>
         protected override TTo GetItem(int index)
         {
-            return m_source[index];
+            return _mSource[index];
         }
 
         /// <summary>
         ///     Gets the number of contained elements.
         /// </summary>
-        public override int Count => m_source.Count;
+        public override int Count => _mSource.Count;
 
         #region Implementation
 
         [ContractInvariantMethod]
         void ObjectInvariant()
         {
-            Contract.Invariant(m_source != null);
+            Contract.Invariant(_mSource != null);
         }
 
-        private readonly IList<TFrom> m_source;
+        private readonly IList<TFrom> _mSource;
 
         #endregion
     }

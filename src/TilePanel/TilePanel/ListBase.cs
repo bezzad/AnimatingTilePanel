@@ -42,11 +42,11 @@ namespace TilePanel
         {
             get
             {
-                if (m_syncRoot == null)
+                if (_mSyncRoot == null)
                 {
-                    Interlocked.CompareExchange(ref m_syncRoot, new object(), null);
+                    Interlocked.CompareExchange(ref _mSyncRoot, new object(), null);
                 }
-                return m_syncRoot;
+                return _mSyncRoot;
             }
         }
 
@@ -255,7 +255,7 @@ namespace TilePanel
 
         #endregion
 
-        private object m_syncRoot;
+        private object _mSyncRoot;
 
         #region Private Static Helpers
 

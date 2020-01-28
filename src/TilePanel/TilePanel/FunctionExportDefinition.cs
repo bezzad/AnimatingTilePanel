@@ -10,8 +10,8 @@ namespace TilePanel
         private FunctionExportDefinition(ExportDefinition definition, ComposablePartDefinition partDefinition)
             : base(definition.ContractName, definition.Metadata)
         {
-            m_exportDefinition = definition;
-            m_partDefinition = partDefinition;
+            _mExportDefinition = definition;
+            _mPartDefinition = partDefinition;
         }
 
         public static IEnumerable<FunctionExportDefinition<T>> GetExports(ComposablePartCatalog catalog)
@@ -26,11 +26,11 @@ namespace TilePanel
 
         public T GetValue()
         {
-            return (T)m_partDefinition.CreatePart().GetExportedValue(m_exportDefinition);
+            return (T)_mPartDefinition.CreatePart().GetExportedValue(_mExportDefinition);
         }
 
-        private readonly ExportDefinition m_exportDefinition;
-        private readonly ComposablePartDefinition m_partDefinition;
+        private readonly ExportDefinition _mExportDefinition;
+        private readonly ComposablePartDefinition _mPartDefinition;
     }
 
     public static class CompositionHelpers

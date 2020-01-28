@@ -34,7 +34,7 @@ namespace TilePanel
         {
             Contract.Requires(unlockAction != null);
 
-            m_unlockDelegate = unlockAction;
+            _mUnlockDelegate = unlockAction;
         }
 
         /// <summary>
@@ -44,14 +44,14 @@ namespace TilePanel
         /// <exception cref="InvalidOperationException">If <see cref="Dispose()"/> has already been called.</exception>
         public void Dispose()
         {
-            Action action = Interlocked.Exchange(ref m_unlockDelegate, null);
+            Action action = Interlocked.Exchange(ref _mUnlockDelegate, null);
             Util.ThrowUnless<ObjectDisposedException>(action != null, "Dispose has already been called on this object.");
             action();
         }
 
         #region Implementation
 
-        private Action m_unlockDelegate;
+        private Action _mUnlockDelegate;
 
         #endregion
     } //*** class ActionOnDispose

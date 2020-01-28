@@ -20,9 +20,9 @@ namespace TilePanel
 
         public void StartListening()
         {
-            requireAccessAndNotDisposed();
+            RequireAccessAndNotDisposed();
 
-            if (!m_isListening)
+            if (!_mIsListening)
             {
                 IsListening = true;
                 CompositionTarget.Rendering += compositionTarget_Rendering;
@@ -35,9 +35,9 @@ namespace TilePanel
 
         public void StopListening()
         {
-            requireAccessAndNotDisposed();
+            RequireAccessAndNotDisposed();
 
-            if (m_isListening)
+            if (_mIsListening)
             {
                 IsListening = false;
                 CompositionTarget.Rendering -= compositionTarget_Rendering;
@@ -53,7 +53,7 @@ namespace TilePanel
         public void WireParentLoadedUnloaded(FrameworkElement parent)
         {
             Contract.Requires(parent != null);
-            requireAccessAndNotDisposed();
+            RequireAccessAndNotDisposed();
 
             parent.Loaded += delegate (object sender, RoutedEventArgs e)
             {
@@ -69,12 +69,12 @@ namespace TilePanel
 
         public bool IsListening
         {
-            get => m_isListening;
+            get => _mIsListening;
             private set
             {
-                if (value != m_isListening)
+                if (value != _mIsListening)
                 {
-                    m_isListening = value;
+                    _mIsListening = value;
                     OnIsListeneningChanged(EventArgs.Empty);
                 }
             }
@@ -87,7 +87,7 @@ namespace TilePanel
 #if !SILVERLIGHT
                 VerifyAccess();
 #endif
-                return m_disposed;
+                return _mDisposed;
             }
         }
 
@@ -95,7 +95,7 @@ namespace TilePanel
 
         protected virtual void OnRendering(EventArgs args)
         {
-            requireAccessAndNotDisposed();
+            RequireAccessAndNotDisposed();
 
             EventHandler handler = Rendering;
             if (handler != null)
@@ -117,25 +117,25 @@ namespace TilePanel
 
         public void Dispose()
         {
-            requireAccessAndNotDisposed();
+            RequireAccessAndNotDisposed();
             StopListening();
 
             Rendering
               .GetInvocationList()
               .ForEach(d => Rendering -= (EventHandler)d);
 
-            m_disposed = true;
+            _mDisposed = true;
         }
 
         #region Implementation
 
         [DebuggerStepThrough]
-        private void requireAccessAndNotDisposed()
+        private void RequireAccessAndNotDisposed()
         {
 #if !SILVERLIGHT
             VerifyAccess();
 #endif
-            Util.ThrowUnless<ObjectDisposedException>(!m_disposed, "This object has been disposed");
+            Util.ThrowUnless<ObjectDisposedException>(!_mDisposed, "This object has been disposed");
         }
 
         private void compositionTarget_Rendering(object sender, EventArgs e)
@@ -146,8 +146,8 @@ namespace TilePanel
             OnRendering(e);
         }
 
-        private bool m_isListening;
-        private bool m_disposed;
+        private bool _mIsListening;
+        private bool _mDisposed;
 
 #if FRAME_RATE
     private int m_count = 0;

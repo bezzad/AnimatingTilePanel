@@ -44,10 +44,10 @@ namespace TilePanel
             Contract.Requires(target.Width > 0);
             Contract.Requires(source.Width > 0);
 
-            double targetHWR = target.Height / target.Width;
-            double sourceHWR = source.Height / source.Width;
+            double targetHwr = target.Height / target.Width;
+            double sourceHwr = source.Height / source.Width;
 
-            if (targetHWR > sourceHWR)
+            if (targetHwr > sourceHwr)
             {
                 return target.Width / source.Width;
             }

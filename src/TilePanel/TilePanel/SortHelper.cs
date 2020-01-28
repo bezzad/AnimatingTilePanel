@@ -36,7 +36,7 @@ namespace TilePanel
             {
                 try
                 {
-                    return quickSort(list, 0, list.Count - 1, comparer);
+                    return QuickSort(list, 0, list.Count - 1, comparer);
                 }
                 catch (IndexOutOfRangeException ioore)
                 {
@@ -50,7 +50,7 @@ namespace TilePanel
             return false;
         }
 
-        private static bool quickSort<T>(IList<T> keys, int left, int right, IComparer<T> comparer)
+        private static bool QuickSort<T>(IList<T> keys, int left, int right, IComparer<T> comparer)
         {
             Debug.Assert(comparer != null);
             Debug.Assert(keys != null);
@@ -65,9 +65,9 @@ namespace TilePanel
                 int a = left;
                 int b = right;
                 int num3 = a + ((b - a) >> 1);
-                change = swapIfGreaterWithItems(keys, comparer, a, num3) || change;
-                change = swapIfGreaterWithItems(keys, comparer, a, b) || change;
-                change = swapIfGreaterWithItems(keys, comparer, num3, b) || change;
+                change = SwapIfGreaterWithItems(keys, comparer, a, num3) || change;
+                change = SwapIfGreaterWithItems(keys, comparer, a, b) || change;
+                change = SwapIfGreaterWithItems(keys, comparer, num3, b) || change;
                 T y = keys[num3];
                 do
                 {
@@ -98,7 +98,7 @@ namespace TilePanel
                 {
                     if (left < b)
                     {
-                        change = quickSort(keys, left, b, comparer) || change;
+                        change = QuickSort(keys, left, b, comparer) || change;
                     }
                     left = a;
                 }
@@ -106,7 +106,7 @@ namespace TilePanel
                 {
                     if (a < right)
                     {
-                        change = quickSort(keys, a, right, comparer) || change;
+                        change = QuickSort(keys, a, right, comparer) || change;
                     }
                     right = b;
                 }
@@ -116,7 +116,7 @@ namespace TilePanel
             return change;
         }
 
-        private static bool swapIfGreaterWithItems<T>(IList<T> keys, IComparer<T> comparer, int a, int b)
+        private static bool SwapIfGreaterWithItems<T>(IList<T> keys, IComparer<T> comparer, int a, int b)
         {
             Contract.Requires(comparer != null);
             Contract.Requires(keys != null);

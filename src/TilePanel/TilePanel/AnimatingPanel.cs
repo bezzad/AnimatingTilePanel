@@ -11,8 +11,8 @@ namespace TilePanel
     {
         protected AnimatingPanel()
         {
-            m_listener.Rendering += compositionTarget_Rendering;
-            m_listener.WireParentLoadedUnloaded(this);
+            _mListener.Rendering += compositionTarget_Rendering;
+            _mListener.WireParentLoadedUnloaded(this);
         }
 
         #region DPs
@@ -24,7 +24,7 @@ namespace TilePanel
         }
 
         public static readonly DependencyProperty DampeningProperty =
-            CreateDoubleDP("Dampening", 0.2, FrameworkPropertyMetadataOptions.None, 0, 1, false);
+            CreateDoubleDp("Dampening", 0.2, FrameworkPropertyMetadataOptions.None, 0, 1, false);
 
         public double Attraction
         {
@@ -33,7 +33,7 @@ namespace TilePanel
         }
 
         public static readonly DependencyProperty AttractionProperty =
-            CreateDoubleDP("Attraction", 2, FrameworkPropertyMetadataOptions.None, 0, double.PositiveInfinity, false);
+            CreateDoubleDp("Attraction", 2, FrameworkPropertyMetadataOptions.None, 0, double.PositiveInfinity, false);
 
         public double Variation
         {
@@ -42,7 +42,7 @@ namespace TilePanel
         }
 
         public static readonly DependencyProperty VariationProperty =
-            CreateDoubleDP("Variation", 1, FrameworkPropertyMetadataOptions.None, 0, true, 1, true, false);
+            CreateDoubleDp("Variation", 1, FrameworkPropertyMetadataOptions.None, 0, true, 1, true, false);
 
         #endregion
 
@@ -53,7 +53,7 @@ namespace TilePanel
 
         protected void ArrangeChild(UIElement child, Rect bounds)
         {
-            m_listener.StartListening();
+            _mListener.StartListening();
 
             AnimatingPanelItemData data = (AnimatingPanelItemData)child.GetValue(DataProperty);
             if (data == null)
@@ -82,7 +82,7 @@ namespace TilePanel
             bool shouldChange = false;
             for (int i = 0; i < Children.Count; i++)
             {
-                shouldChange = updateChildData(
+                shouldChange = UpdateChildData(
                     (AnimatingPanelItemData)Children[i].GetValue(DataProperty),
                     dampening,
                     attractionFactor,
@@ -91,11 +91,11 @@ namespace TilePanel
 
             if (!shouldChange)
             {
-                m_listener.StopListening();
+                _mListener.StopListening();
             }
         }
 
-        private static bool updateChildData(AnimatingPanelItemData data, double dampening, double attractionFactor, double variation)
+        private static bool UpdateChildData(AnimatingPanelItemData data, double dampening, double attractionFactor, double variation)
         {
             if (data == null)
             {
@@ -113,7 +113,7 @@ namespace TilePanel
 
                 bool anythingChanged =
                     GeoHelper.Animate(data.Current, data.LocationVelocity, data.Target,
-                        attractionFactor, dampening, c_terminalVelocity, c_diff, c_diff,
+                        attractionFactor, dampening, CTerminalVelocity, CDiff, CDiff,
                         out newLocation, out newVelocity);
 
                 data.Current = newLocation;
@@ -126,9 +126,9 @@ namespace TilePanel
             }
         }
 
-        private readonly CompositionTargetRenderingListener m_listener = new CompositionTargetRenderingListener();
+        private readonly CompositionTargetRenderingListener _mListener = new CompositionTargetRenderingListener();
 
-        protected static DependencyProperty CreateDoubleDP(
+        protected static DependencyProperty CreateDoubleDp(
           string name,
           double defaultValue,
           FrameworkPropertyMetadataOptions metadataOptions,
@@ -136,10 +136,10 @@ namespace TilePanel
           double maxValue,
           bool attached)
         {
-            return CreateDoubleDP(name, defaultValue, metadataOptions, minValue, false, maxValue, false, attached);
+            return CreateDoubleDp(name, defaultValue, metadataOptions, minValue, false, maxValue, false, attached);
         }
 
-        protected static DependencyProperty CreateDoubleDP(
+        protected static DependencyProperty CreateDoubleDp(
             string name,
             double defaultValue,
             FrameworkPropertyMetadataOptions metadataOptions,
@@ -210,8 +210,8 @@ namespace TilePanel
         private static readonly DependencyProperty DataProperty =
             DependencyProperty.RegisterAttached("Data", typeof(AnimatingPanelItemData), typeof(AnimatingTilePanel));
 
-        private const double c_diff = 0.1;
-        private const double c_terminalVelocity = 10000;
+        private const double CDiff = 0.1;
+        private const double CTerminalVelocity = 10000;
 
         private class AnimatingPanelItemData
         {

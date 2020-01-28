@@ -160,10 +160,10 @@ namespace TilePanel
             get
             {
                 Contract.Ensures(Contract.Result<Random>() != null);
-                var r = (Random)s_random.Target;
+                var r = (Random)SRandom.Target;
                 if (r == null)
                 {
-                    s_random.Target = r = new Random();
+                    SRandom.Target = r = new Random();
                 }
                 return r;
             }
@@ -199,6 +199,6 @@ namespace TilePanel
             return enumType.GetFields(BindingFlags.Public | BindingFlags.Static);
         }
 
-        private static readonly WeakReference s_random = new WeakReference(null);
+        private static readonly WeakReference SRandom = new WeakReference(null);
     } //*** public class Util
 }
