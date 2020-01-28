@@ -6,29 +6,49 @@
         xmlns:tilePanel="clr-namespace:TilePanel;assembly=TilePanel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="50" />
+            <Setter Property="Height" Value="50" />
+        </Style>
+    </Window.Resources>
     <Grid>
-        <tilePanel:AnimatingTilePanel ItemWidth="110" ItemHeight="160" SnapsToDevicePixels="True" Dampening="0.2" Attraction="2" Variation="1">
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
-            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+        <tilePanel:AnimatingTilePanel ItemWidth="60" ItemHeight="60" SnapsToDevicePixels="True" Dampening="0.2" Attraction="2" Variation="1">
+            <Button Background="BurlyWood"></Button>
+            <Button Background="Aqua"></Button>
+            <Button Background="BlueViolet"></Button>
+            <Button Background="Brown"></Button>
+            <Button Background="Aquamarine"></Button>
+            <Button Background="Coral"></Button>
+            <Button Background="Chartreuse"></Button>
+            <Button Background="DarkCyan"></Button>
+
+            <Button Background="BurlyWood"></Button>
+            <Button Background="Aqua"></Button>
+            <Button Background="BlueViolet"></Button>
+            <Button Background="Brown"></Button>
+            <Button Background="Aquamarine"></Button>
+            <Button Background="Coral"></Button>
+            <Button Background="Chartreuse"></Button>
+            <Button Background="DarkCyan"></Button>
+
+            <Button Background="BurlyWood"></Button>
+            <Button Background="Aqua"></Button>
+            <Button Background="BlueViolet"></Button>
+            <Button Background="Brown"></Button>
+            <Button Background="Aquamarine"></Button>
+            <Button Background="Coral"></Button>
+            <Button Background="Chartreuse"></Button>
+            <Button Background="DarkCyan"></Button>
+
+            <Button Background="BurlyWood"></Button>
+            <Button Background="Aqua"></Button>
+            <Button Background="BlueViolet"></Button>
+            <Button Background="Brown"></Button>
+            <Button Background="Aquamarine"></Button>
+            <Button Background="Coral"></Button>
+            <Button Background="Chartreuse"></Button>
+            <Button Background="DarkCyan"></Button>
         </tilePanel:AnimatingTilePanel>
     </Grid>
 </Window>
