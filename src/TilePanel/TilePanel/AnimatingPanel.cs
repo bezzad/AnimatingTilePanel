@@ -11,39 +11,40 @@ namespace TilePanel
     {
         protected AnimatingPanel()
         {
-            _mListener.Rendering += compositionTarget_Rendering;
-            _mListener.WireParentLoadedUnloaded(this);
+            MListener.Rendering += compositionTarget_Rendering;
+            MListener.WireParentLoadedUnloaded(this);
         }
+
+
+        private static readonly DependencyProperty DataProperty = DependencyProperty.RegisterAttached("Data", typeof(AnimatingPanelItemData), typeof(AnimatingTilePanel));
+        private CompositionTargetRenderingListener MListener { get; } = new CompositionTargetRenderingListener();
+        private const double CDiff = 0.1;
+        private const double CTerminalVelocity = 10000;
 
         #region DPs
 
+        public static readonly DependencyProperty AttractionProperty = CreateDoubleDp(nameof(Attraction), 2, FrameworkPropertyMetadataOptions.None, 0, double.PositiveInfinity, false);
+        public static readonly DependencyProperty VariationProperty = CreateDoubleDp(nameof(Variation), 1, FrameworkPropertyMetadataOptions.None, 0, true, 1, true, false);
+        public static readonly DependencyProperty DampeningProperty = CreateDoubleDp(nameof(Dampening), 0.2, FrameworkPropertyMetadataOptions.None, 0, 1, false);
+        
         public double Dampening
         {
             get => (double)GetValue(DampeningProperty);
             set => SetValue(DampeningProperty, value);
         }
-
-        public static readonly DependencyProperty DampeningProperty =
-            CreateDoubleDp("Dampening", 0.2, FrameworkPropertyMetadataOptions.None, 0, 1, false);
-
+        
         public double Attraction
         {
             get => (double)GetValue(AttractionProperty);
             set => SetValue(AttractionProperty, value);
         }
-
-        public static readonly DependencyProperty AttractionProperty =
-            CreateDoubleDp("Attraction", 2, FrameworkPropertyMetadataOptions.None, 0, double.PositiveInfinity, false);
-
+        
         public double Variation
         {
             get => (double)GetValue(VariationProperty);
             set => SetValue(VariationProperty, value);
         }
-
-        public static readonly DependencyProperty VariationProperty =
-            CreateDoubleDp("Variation", 1, FrameworkPropertyMetadataOptions.None, 0, true, 1, true, false);
-
+        
         #endregion
 
         protected virtual Point ProcessNewChild(UIElement child, Rect providedBounds)
@@ -53,7 +54,7 @@ namespace TilePanel
 
         protected void ArrangeChild(UIElement child, Rect bounds)
         {
-            _mListener.StartListening();
+            MListener.StartListening();
 
             var data = (AnimatingPanelItemData)child.GetValue(DataProperty);
             if (data == null)
@@ -91,7 +92,7 @@ namespace TilePanel
 
             if (!shouldChange)
             {
-                _mListener.StopListening();
+                MListener.StopListening();
             }
         }
 
@@ -119,7 +120,6 @@ namespace TilePanel
             return anythingChanged;
         }
 
-        private readonly CompositionTargetRenderingListener _mListener = new CompositionTargetRenderingListener();
 
         protected static DependencyProperty CreateDoubleDp(
           string name,
@@ -187,12 +187,7 @@ namespace TilePanel
                     new FrameworkPropertyMetadata(defaultValue, metadataOptions), validateValueCallback);
             }
         }
-
-        private static readonly DependencyProperty DataProperty =
-            DependencyProperty.RegisterAttached("Data", typeof(AnimatingPanelItemData), typeof(AnimatingTilePanel));
-
-        private const double CDiff = 0.1;
-        private const double CTerminalVelocity = 10000;
+        
 
         private class AnimatingPanelItemData
         {

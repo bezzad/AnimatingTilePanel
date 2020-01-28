@@ -97,26 +97,26 @@ namespace TilePanel
                 ArrangeChild(Children[i], new Rect(newOffset, theChildSize));
             }
 
-            _mArrangedOnce = true;
+            ArrangedOnce = true;
             return finalSize;
         }
 
         protected override Point ProcessNewChild(UIElement child, Rect providedBounds)
         {
             var startLocation = providedBounds.Location;
-            if (_mArrangedOnce)
+            if (ArrangedOnce)
             {
-                if (_mItemOpacityAnimation == null)
+                if (ItemOpacityAnimation == null)
                 {
-                    _mItemOpacityAnimation = new DoubleAnimation()
+                    ItemOpacityAnimation = new DoubleAnimation()
                     {
                         From = 0,
                         Duration = new Duration(TimeSpan.FromSeconds(.5))
                     };
-                    _mItemOpacityAnimation.Freeze();
+                    ItemOpacityAnimation.Freeze();
                 }
 
-                child.BeginAnimation(OpacityProperty, _mItemOpacityAnimation);
+                child.BeginAnimation(OpacityProperty, ItemOpacityAnimation);
                 startLocation -= new Vector(providedBounds.Width, 0);
             }
             return startLocation;
@@ -141,9 +141,9 @@ namespace TilePanel
 
         private void OnPreApplyTemplate()
         {
-            if (!_mAppliedTemplate)
+            if (!AppliedTemplate)
             {
-                _mAppliedTemplate = true;
+                AppliedTemplate = true;
 
                 var source = TemplatedParent;
                 if (source is ItemsPresenter)
@@ -182,9 +182,9 @@ namespace TilePanel
 
         #endregion
 
-        private bool _mAppliedTemplate;
-        private bool _mArrangedOnce;
-        private DoubleAnimation _mItemOpacityAnimation;
+        protected bool AppliedTemplate { get; set; }
+        protected bool ArrangedOnce { get; set; }
+        protected DoubleAnimation ItemOpacityAnimation { get; set; }
 
         #endregion
     } 
