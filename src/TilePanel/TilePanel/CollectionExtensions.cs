@@ -17,7 +17,7 @@ namespace TilePanel
         {
             Contract.Requires<ArgumentNullException>(source != null);
 
-            EqualityComparer<T> comparer = EqualityComparer<T>.Default;
+            var comparer = EqualityComparer<T>.Default;
 
             return source.TrueForAllPairs((a, b) => !comparer.Equals(a, b));
         }
@@ -32,9 +32,9 @@ namespace TilePanel
             Contract.Requires(source != null);
             Contract.Requires(compare != null);
 
-            for (int i = 0; i < source.Count; i++)
+            for (var i = 0; i < source.Count; i++)
             {
-                for (int j = i + 1; j < source.Count; j++)
+                for (var j = i + 1; j < source.Count; j++)
                 {
                     if (!compare(source[i], source[j]))
                     {
@@ -58,7 +58,7 @@ namespace TilePanel
             Contract.Requires(source != null);
             Contract.Requires(action != null);
 
-            foreach (TSource item in source)
+            foreach (var item in source)
             {
                 action(item);
             }

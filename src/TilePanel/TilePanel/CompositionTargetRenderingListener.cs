@@ -97,7 +97,7 @@ namespace TilePanel
         {
             RequireAccessAndNotDisposed();
 
-            EventHandler handler = Rendering;
+            var handler = Rendering;
             if (handler != null)
             {
                 handler(this, args);

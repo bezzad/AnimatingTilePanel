@@ -62,7 +62,7 @@ namespace TilePanel
         {
             OnPreApplyTemplate();
 
-            Size theChildSize = GetItemSize();
+            var theChildSize = GetItemSize();
 
             foreach (UIElement child in Children)
             {
@@ -82,8 +82,8 @@ namespace TilePanel
             }
 
             // Calculate the width and height this results in
-            double width = childrenPerRow * this.ItemWidth;
-            double height = this.ItemHeight * (Math.Floor((double)this.Children.Count / childrenPerRow) + 1);
+            var width = childrenPerRow * this.ItemWidth;
+            var height = this.ItemHeight * (Math.Floor((double)this.Children.Count / childrenPerRow) + 1);
             height = (height.IsValid()) ? height : 0;
             return new Size(width, height);
         }
@@ -91,13 +91,13 @@ namespace TilePanel
         protected override sealed Size ArrangeOverride(Size finalSize)
         {
             // Calculate how many children fit on each row
-            int childrenPerRow = Math.Max(1, (int)Math.Floor(finalSize.Width / this.ItemWidth));
-            Size theChildSize = GetItemSize();
+            var childrenPerRow = Math.Max(1, (int)Math.Floor(finalSize.Width / this.ItemWidth));
+            var theChildSize = GetItemSize();
 
-            for (int i = 0; i < this.Children.Count; i++)
+            for (var i = 0; i < this.Children.Count; i++)
             {
                 // Figure out where the child goes
-                Point newOffset = CalculateChildOffset(i, childrenPerRow,
+                var newOffset = CalculateChildOffset(i, childrenPerRow,
                     this.ItemWidth, this.ItemHeight,
                     finalSize.Width, this.Children.Count);
 
@@ -141,7 +141,7 @@ namespace TilePanel
         {
             if (DependencyPropertyHelper.GetValueSource(this, property).BaseValueSource == BaseValueSource.Default)
             {
-                Binding binding = new Binding();
+                var binding = new Binding();
                 binding.Source = source;
                 binding.Path = new PropertyPath(property);
                 base.SetBinding(property, binding);
@@ -154,7 +154,7 @@ namespace TilePanel
             {
                 _mAppliedTemplate = true;
 
-                DependencyObject source = base.TemplatedParent;
+                var source = base.TemplatedParent;
                 if (source is ItemsPresenter)
                 {
                     source = TreeHelpers.FindParent<ItemsControl>(source);
@@ -184,8 +184,8 @@ namespace TilePanel
                 Debug.Assert(fudge >= 0);
             }
 
-            int row = index / childrenPerRow;
-            int column = index % childrenPerRow;
+            var row = index / childrenPerRow;
+            var column = index % childrenPerRow;
             return new Point(.5 * fudge + column * (itemWidth + fudge), row * itemHeight);
         }
 

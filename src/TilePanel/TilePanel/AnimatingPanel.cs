@@ -55,7 +55,7 @@ namespace TilePanel
         {
             _mListener.StartListening();
 
-            AnimatingPanelItemData data = (AnimatingPanelItemData)child.GetValue(DataProperty);
+            var data = (AnimatingPanelItemData)child.GetValue(DataProperty);
             if (data == null)
             {
                 data = new AnimatingPanelItemData();
@@ -75,12 +75,12 @@ namespace TilePanel
 
         private void compositionTarget_Rendering(object sender, EventArgs e)
         {
-            double dampening = this.Dampening;
-            double attractionFactor = this.Attraction * .01;
-            double variation = this.Variation;
+            var dampening = this.Dampening;
+            var attractionFactor = this.Attraction * .01;
+            var variation = this.Variation;
 
-            bool shouldChange = false;
-            for (int i = 0; i < Children.Count; i++)
+            var shouldChange = false;
+            for (var i = 0; i < Children.Count; i++)
             {
                 shouldChange = UpdateChildData(
                     (AnimatingPanelItemData)Children[i].GetValue(DataProperty),
@@ -111,7 +111,7 @@ namespace TilePanel
                 Point newLocation;
                 Vector newVelocity;
 
-                bool anythingChanged =
+                var anythingChanged =
                     GeoHelper.Animate(data.Current, data.LocationVelocity, data.Target,
                         attractionFactor, dampening, CTerminalVelocity, CDiff, CDiff,
                         out newLocation, out newVelocity);
@@ -155,7 +155,7 @@ namespace TilePanel
 
             ValidateValueCallback validateValueCallback = delegate (object objValue)
             {
-                double value = (double)objValue;
+                var value = (double)objValue;
 
                 if (includeMin)
                 {

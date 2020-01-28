@@ -59,16 +59,16 @@ namespace TilePanel
             Debug.Assert(right >= 0);
             Debug.Assert(right < keys.Count);
 
-            bool change = false;
+            var change = false;
             do
             {
-                int a = left;
-                int b = right;
-                int num3 = a + ((b - a) >> 1);
+                var a = left;
+                var b = right;
+                var num3 = a + ((b - a) >> 1);
                 change = SwapIfGreaterWithItems(keys, comparer, a, num3) || change;
                 change = SwapIfGreaterWithItems(keys, comparer, a, b) || change;
                 change = SwapIfGreaterWithItems(keys, comparer, num3, b) || change;
-                T y = keys[num3];
+                var y = keys[num3];
                 do
                 {
                     while (comparer.Compare(keys[a], y) < 0)
@@ -85,7 +85,7 @@ namespace TilePanel
                     }
                     if (a < b)
                     {
-                        T local2 = keys[a];
+                        var local2 = keys[a];
                         keys[a] = keys[b];
                         keys[b] = local2;
                         change = true;
@@ -127,7 +127,7 @@ namespace TilePanel
 
             if ((a != b) && (comparer.Compare(keys[a], keys[b]) > 0))
             {
-                T local = keys[a];
+                var local = keys[a];
                 keys[a] = keys[b];
                 keys[b] = local;
                 return true;

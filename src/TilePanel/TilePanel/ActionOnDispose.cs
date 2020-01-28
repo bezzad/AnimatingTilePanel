@@ -44,7 +44,7 @@ namespace TilePanel
         /// <exception cref="InvalidOperationException">If <see cref="Dispose()"/> has already been called.</exception>
         public void Dispose()
         {
-            Action action = Interlocked.Exchange(ref _mUnlockDelegate, null);
+            var action = Interlocked.Exchange(ref _mUnlockDelegate, null);
             Util.ThrowUnless<ObjectDisposedException>(action != null, "Dispose has already been called on this object.");
             action();
         }

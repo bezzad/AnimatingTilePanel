@@ -30,7 +30,7 @@ namespace TilePanel
             Debug.Assert(minValueDelta > 0);
             Debug.Assert(minVelocityDelta > 0);
 
-            Vector3D diff = targetValue - currentValue;
+            var diff = targetValue - currentValue;
 
             if (diff.Length > minValueDelta || currentVelocity.Length > minVelocityDelta)
             {
@@ -85,16 +85,6 @@ namespace TilePanel
         {
             Contract.Requires(transform != null);
             return new Point(transform.Value.OffsetX, transform.Value.OffsetY);
-        }
-
-        /// <param name="angleRadians">The angle, in radians, from 3-o'clock going counter-clockwise.</param>
-        public static void DrawLine(this DrawingContext drawingContext, Pen pen, Point startPoint, double angleRadians, double length)
-        {
-            Contract.Requires<ArgumentNullException>(drawingContext != null);
-            Contract.Requires<ArgumentException>(startPoint.IsValid());
-            Contract.Requires<ArgumentNullException>(pen != null);
-
-            drawingContext.DrawLine(pen, startPoint, startPoint + GeoHelper.GetVectorFromAngle(angleRadians, length));
         }
     }
 }

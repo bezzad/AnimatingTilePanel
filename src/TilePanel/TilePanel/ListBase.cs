@@ -8,7 +8,7 @@ using System.Threading;
 namespace TilePanel
 {
     /// <summary>
-    ///     Serves as a base implemetation of <see cref="IList{T}"/>.
+    ///     Serves as a base implementation of <see cref="IList{T}"/>.
     /// </summary>
     /// <typeparam name="T">The type of the item in the list.</typeparam>
     [ContractClass(typeof(ListBaseContract<>))]
@@ -54,7 +54,7 @@ namespace TilePanel
 
         public virtual int IndexOf(T item)
         {
-            for (int i = 0; i < this.Count; i++)
+            for (var i = 0; i < this.Count; i++)
             {
                 if (EqualityComparer<T>.Default.Equals(this[i], item))
                 {
@@ -93,7 +93,7 @@ namespace TilePanel
         {
             if (item == null)
             {
-                for (int num1 = 0; num1 < this.Count; num1++)
+                for (var num1 = 0; num1 < this.Count; num1++)
                 {
                     if (this[num1] == null)
                     {
@@ -102,8 +102,8 @@ namespace TilePanel
                 }
                 return false;
             }
-            EqualityComparer<T> comparer1 = EqualityComparer<T>.Default;
-            for (int num2 = 0; num2 < this.Count; num2++)
+            var comparer1 = EqualityComparer<T>.Default;
+            for (var num2 = 0; num2 < this.Count; num2++)
             {
                 if (comparer1.Equals(this[num2], item))
                 {
@@ -155,7 +155,7 @@ namespace TilePanel
 
         public virtual IEnumerator<T> GetEnumerator()
         {
-            for (int i = 0; i < this.Count; i++)
+            for (var i = 0; i < this.Count; i++)
             {
                 yield return this[i];
             }
@@ -234,7 +234,7 @@ namespace TilePanel
 
         public virtual void CopyTo(Array array, int index)
         {
-            for (int i = 0; i < this.Count; i++)
+            for (var i = 0; i < this.Count; i++)
             {
                 array.SetValue(this[i], index + i);
             }

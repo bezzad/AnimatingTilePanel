@@ -44,8 +44,8 @@ namespace TilePanel
             Contract.Requires(target.Width > 0);
             Contract.Requires(source.Width > 0);
 
-            double targetHwr = target.Height / target.Width;
-            double sourceHwr = source.Height / source.Width;
+            var targetHwr = target.Height / target.Width;
+            var sourceHwr = source.Height / source.Width;
 
             if (targetHwr > sourceHwr)
             {
@@ -78,7 +78,7 @@ namespace TilePanel
             Debug.Assert(minValueDelta > 0);
             Debug.Assert(minVelocityDelta > 0);
 
-            double diff = targetValue - currentValue;
+            var diff = targetValue - currentValue;
 
             if (diff.Abs() > minValueDelta || currentVelocity.Abs() > minVelocityDelta)
             {
@@ -122,7 +122,7 @@ namespace TilePanel
             Debug.Assert(minValueDelta > 0);
             Debug.Assert(minVelocityDelta > 0);
 
-            Vector diff = targetValue.Subtract(currentValue);
+            var diff = targetValue.Subtract(currentValue);
 
             if (diff.Length > minValueDelta || currentVelocity.Length > minVelocityDelta)
             {
@@ -233,9 +233,9 @@ namespace TilePanel
             Debug.Assert(point2.IsValid());
             Debug.Assert(point3.IsValid());
 
-            double rad = AngleRad(point2.Subtract(point1), point2.Subtract(point3));
+            var rad = AngleRad(point2.Subtract(point1), point2.Subtract(point3));
 
-            double rad2 = AngleRad(point2.Subtract(point1), (point2.Subtract(point3)).RightAngle());
+            var rad2 = AngleRad(point2.Subtract(point1), (point2.Subtract(point3)).RightAngle());
 
             if (rad2 < (Math.PI / 2))
             {
@@ -265,9 +265,9 @@ namespace TilePanel
             Debug.Assert(v1.IsValid());
             Debug.Assert(v2.IsValid());
 
-            double dot = Dot(v1, v2);
-            double dotNormalize = dot / (v1.Length * v2.Length);
-            double acos = Math.Acos(dotNormalize);
+            var dot = Dot(v1, v2);
+            var dotNormalize = dot / (v1.Length * v2.Length);
+            var acos = Math.Acos(dotNormalize);
 
             return acos;
         }
@@ -277,8 +277,8 @@ namespace TilePanel
             Contract.Requires(angleRadians.IsValid());
             Contract.Requires(length.IsValid());
 
-            double x = Math.Cos(angleRadians) * length;
-            double y = -Math.Sin(angleRadians) * length;
+            var x = Math.Cos(angleRadians) * length;
+            var y = -Math.Sin(angleRadians) * length;
 
             return new Vector(x, y);
         }

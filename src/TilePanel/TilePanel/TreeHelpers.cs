@@ -54,9 +54,9 @@ namespace TilePanel
         public static IEnumerable<DependencyObject> GetVisualChildren(this DependencyObject source)
         {
             Contract.Requires(source != null);
-            int count = VisualTreeHelper.GetChildrenCount(source);
+            var count = VisualTreeHelper.GetChildrenCount(source);
 
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 yield return VisualTreeHelper.GetChild(source, i);
             }
@@ -86,7 +86,7 @@ namespace TilePanel
             if (itemsControl.Items.Count > 0)
             {
                 // find the ItemsPanel
-                Panel panel = VisualTreeHelper.GetParent(itemsControl.ItemContainerGenerator.ContainerFromIndex(0)) as Panel;
+                var panel = VisualTreeHelper.GetParent(itemsControl.ItemContainerGenerator.ContainerFromIndex(0)) as Panel;
 
                 if (panel != null)
                 {
