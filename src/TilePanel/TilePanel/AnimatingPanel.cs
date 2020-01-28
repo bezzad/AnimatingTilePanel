@@ -75,9 +75,9 @@ namespace TilePanel
 
         private void compositionTarget_Rendering(object sender, EventArgs e)
         {
-            var dampening = this.Dampening;
-            var attractionFactor = this.Attraction * .01;
-            var variation = this.Variation;
+            var dampening = Dampening;
+            var attractionFactor = Attraction * .01;
+            var variation = Variation;
 
             var shouldChange = false;
             for (var i = 0; i < Children.Count; i++)
@@ -98,29 +98,25 @@ namespace TilePanel
         private static bool UpdateChildData(AnimatingPanelItemData data, double dampening, double attractionFactor, double variation)
         {
             if (data == null)
-            {
                 return false;
-            }
-            else
-            {
-                Debug.Assert(dampening > 0 && dampening < 1);
-                Debug.Assert(attractionFactor > 0 && !double.IsInfinity(attractionFactor));
 
-                attractionFactor *= 1 + (variation * data.RandomSeed - 0.5);
+            Debug.Assert(dampening > 0 && dampening < 1);
+            Debug.Assert(attractionFactor > 0 && !double.IsInfinity(attractionFactor));
 
-                var anythingChanged =
-                    GeoHelper.Animate(data.Current, data.LocationVelocity, data.Target,
-                        attractionFactor, dampening, CTerminalVelocity, CDiff, CDiff,
-                        out var newLocation, out var newVelocity);
+            attractionFactor *= 1 + (variation * data.RandomSeed - 0.5);
 
-                data.Current = newLocation;
-                data.LocationVelocity = newVelocity;
+            var anythingChanged =
+                GeoHelper.Animate(data.Current, data.LocationVelocity, data.Target,
+                    attractionFactor, dampening, CTerminalVelocity, CDiff, CDiff,
+                    out var newLocation, out var newVelocity);
 
-                var transformVector = data.Current - data.Target;
-                data.Transform.SetToVector(transformVector);
+            data.Current = newLocation;
+            data.LocationVelocity = newVelocity;
 
-                return anythingChanged;
-            }
+            var transformVector = data.Current - data.Target;
+            data.Transform.SetToVector(transformVector);
+
+            return anythingChanged;
         }
 
         private readonly CompositionTargetRenderingListener _mListener = new CompositionTargetRenderingListener();
@@ -156,31 +152,19 @@ namespace TilePanel
 
                 if (includeMin)
                 {
-                    if (value < minValue)
-                    {
-                        return false;
-                    }
+                    if (value < minValue) return false;
                 }
                 else
                 {
-                    if (value <= minValue)
-                    {
-                        return false;
-                    }
+                    if (value <= minValue) return false;
                 }
                 if (includeMax)
                 {
-                    if (value > maxValue)
-                    {
-                        return false;
-                    }
+                    if (value > maxValue) return false;
                 }
                 else
                 {
-                    if (value >= maxValue)
-                    {
-                        return false;
-                    }
+                    if (value >= maxValue) return false;
                 }
 
                 return true;

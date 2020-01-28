@@ -57,12 +57,12 @@ namespace TilePanel
 
             parent.Loaded += delegate (object sender, RoutedEventArgs e)
             {
-                this.StartListening();
+                StartListening();
             };
 
             parent.Unloaded += delegate (object sender, RoutedEventArgs e)
             {
-                this.StopListening();
+                StopListening();
             };
         }
 #endif

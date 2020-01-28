@@ -69,37 +69,30 @@ namespace TilePanel
                 child.Measure(theChildSize);
             }
 
-            int childrenPerRow;
-
             // Figure out how many children fit on each row
-            if (availableSize.Width == Double.PositiveInfinity)
-            {
-                childrenPerRow = this.Children.Count;
-            }
-            else
-            {
-                childrenPerRow = Math.Max(1, (int)Math.Floor(availableSize.Width / this.ItemWidth));
-            }
+            var childrenPerRow = double.IsPositiveInfinity(availableSize.Width) 
+                ? Children.Count 
+                : Math.Max(1, (int)Math.Floor(availableSize.Width / ItemWidth));
 
             // Calculate the width and height this results in
-            var width = childrenPerRow * this.ItemWidth;
-            var height = this.ItemHeight * (Math.Floor((double)this.Children.Count / childrenPerRow) + 1);
+            var width = childrenPerRow * ItemWidth;
+            var height = ItemHeight * (Math.Floor((double)Children.Count / childrenPerRow) + 1);
             height = (height.IsValid()) ? height : 0;
             return new Size(width, height);
         }
 
-        protected override sealed Size ArrangeOverride(Size finalSize)
+        protected sealed override Size ArrangeOverride(Size finalSize)
         {
             // Calculate how many children fit on each row
-            var childrenPerRow = Math.Max(1, (int)Math.Floor(finalSize.Width / this.ItemWidth));
+            var childrenPerRow = Math.Max(1, (int)Math.Floor(finalSize.Width / ItemWidth));
             var theChildSize = GetItemSize();
 
-            for (var i = 0; i < this.Children.Count; i++)
+            for (var i = 0; i < Children.Count; i++)
             {
                 // Figure out where the child goes
                 var newOffset = CalculateChildOffset(i, childrenPerRow,
-                    this.ItemWidth, this.ItemHeight,
-                    finalSize.Width, this.Children.Count);
+                    ItemWidth, ItemHeight,
+                    finalSize.Width, Children.Count);
 
                 ArrangeChild(Children[i], new Rect(newOffset, theChildSize));
             }
@@ -123,7 +116,7 @@ namespace TilePanel
                     _mItemOpacityAnimation.Freeze();
                 }
 
-                child.BeginAnimation(UIElement.OpacityProperty, _mItemOpacityAnimation);
+                child.BeginAnimation(OpacityProperty, _mItemOpacityAnimation);
                 startLocation -= new Vector(providedBounds.Width, 0);
             }
             return startLocation;
@@ -141,10 +134,8 @@ namespace TilePanel
         {
             if (DependencyPropertyHelper.GetValueSource(this, property).BaseValueSource == BaseValueSource.Default)
             {
-                var binding = new Binding();
-                binding.Source = source;
-                binding.Path = new PropertyPath(property);
-                base.SetBinding(property, binding);
+                var binding = new Binding {Source = source, Path = new PropertyPath(property)};
+                SetBinding(property, binding);
             }
         }
 
@@ -154,10 +145,10 @@ namespace TilePanel
             {
                 _mAppliedTemplate = true;
 
-                var source = base.TemplatedParent;
+                var source = TemplatedParent;
                 if (source is ItemsPresenter)
                 {
-                    source = TreeHelpers.FindParent<ItemsControl>(source);
+                    source = source.FindParent<ItemsControl>();
                 }
 
                 if (source != null)
@@ -196,5 +187,5 @@ namespace TilePanel
         private DoubleAnimation _mItemOpacityAnimation;
 
         #endregion
-    } //*** class AnimatingTilePanel
+    } 
 }
