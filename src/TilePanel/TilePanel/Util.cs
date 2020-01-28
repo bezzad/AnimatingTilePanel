@@ -24,12 +24,6 @@ namespace TilePanel
         }
 
         [DebuggerStepThrough]
-        public static void ThrowUnless(bool truth, string message = null)
-        {
-            ThrowUnless<Exception>(truth, message);
-        }
-
-        [DebuggerStepThrough]
         public static void ThrowUnless<TException>(bool truth, string message) where TException : Exception
         {
             if (!truth)

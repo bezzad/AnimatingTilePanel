@@ -106,15 +106,12 @@ namespace TilePanel
                 Debug.Assert(dampening > 0 && dampening < 1);
                 Debug.Assert(attractionFactor > 0 && !double.IsInfinity(attractionFactor));
 
-                attractionFactor *= 1 + (variation * data.RandomSeed - .5);
-
-                Point newLocation;
-                Vector newVelocity;
+                attractionFactor *= 1 + (variation * data.RandomSeed - 0.5);
 
                 var anythingChanged =
                     GeoHelper.Animate(data.Current, data.LocationVelocity, data.Target,
                         attractionFactor, dampening, CTerminalVelocity, CDiff, CDiff,
-                        out newLocation, out newVelocity);
+                        out var newLocation, out var newVelocity);
 
                 data.Current = newLocation;
                 data.LocationVelocity = newVelocity;
