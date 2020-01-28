@@ -3,10 +3,32 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TilePanelDemo"
+        xmlns:tilePanel="clr-namespace:TilePanel;assembly=TilePanel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <tilePanel:AnimatingTilePanel ItemWidth="110" ItemHeight="160" SnapsToDevicePixels="True" Dampening="0.2" Attraction="2" Variation="1">
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+            <Button Background="BurlyWood" Width="100" Height="150"></Button>
+        </tilePanel:AnimatingTilePanel>
     </Grid>
 </Window>
